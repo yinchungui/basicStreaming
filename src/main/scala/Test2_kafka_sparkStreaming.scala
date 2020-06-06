@@ -9,7 +9,7 @@ import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010._
 
 /*
-  kakfa基本操作:   测试环境:伪分布式，配置如下:
+ kakfa基本操作:   测试环境:伪分布式，配置如下:
     本机一台 zk,端口 2181,使用kafka自带的 zk
     kafka使用伪分布式, 占用三个端口: 9092,9093,9094
    启动与关闭:
@@ -20,16 +20,17 @@ import org.apache.spark.streaming.kafka010._
               bin/kafka-server-start.sh config/server-2.properties  &
         3. 关闭:  sh kafka-server-stop.sh
                   sh zookeeper-server-stop.sh
-   创建主题: bin/kafka-topics.sh --create --zookeeper node1:2181,node2:2181,node3:2181  --replication-factor 3  --partitions 3 --topic  topic74streaming
-   主题列表:  bin/kafka-topics.sh --list --zookeeper node1:2181,node2:2181,node3:2181
-   查看主题中消息详情: bin/kafka-topics.sh --describe --zookeeper node1:2181,node2:2181,node3:2181    --topic topic74streaming
-   发送消息: bin/kafka-console-producer.sh --broker-list node1:2181,node2:2181,node3:2181 --topic topic74streaming
+   创建主题: bin/kafka-topics.sh --create --zookeeper localhost:2181  --replication-factor 3  --partitions 3 --topic  topic74streaming
+   主题列表:  bin/kafka-topics.sh --list --zookeeper localhost:2181
+   查看主题中消息详情: bin/kafka-topics.sh --describe --zookeeper localhost:2181    --topic topic74streaming
+   发送消息: bin/kafka-console-producer.sh --broker-list localhost:9092,localhost:9093,localhost:9094 --topic topic74streaming
    消费消息:
-     bin/kafka-console-consumer.sh --bootstrap-server node1:2181,node2:2181,node3:2181  --topic   topic74streaming  --from-beginning
+     bin/kafka-console-consumer.sh --bootstrap-server localhost:9092,localhost:9093,localhost:9094  --topic   topic74streaming  --from-beginning
      需求: sparkstreaming联接kafka,读取消息，完成单词计数
      注意：当前是一个无状态的操作
      步骤:  1.导入驱动
             2. 编码实现
+
  */
 object Test2_kafka_sparkStreaming {
   def main(args: Array[String]): Unit = {
