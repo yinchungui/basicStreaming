@@ -25,7 +25,7 @@ import org.apache.spark.streaming.kafka010._
    查看主题中消息详情: bin/kafka-topics.sh --describe --zookeeper localhost:2181    --topic topic74streaming
    发送消息: bin/kafka-console-producer.sh --broker-list localhost:9092,localhost:9093,localhost:9094 --topic topic74streaming
    消费消息:
-     bin/kafka-console-consumer.sh --bootstrap-server localhost:9092,localhost:9093,localhost:9094  --topic   topic74streaming  --from-beginning
+     kafka-console-consumer.sh --bootstrap-server node1:9092,node2:9092,node3:9092 --topic topic74streaming --from-beginning
      需求: sparkstreaming联接kafka,读取消息，完成单词计数
      注意：当前是一个无状态的操作
      步骤:  1.导入驱动
